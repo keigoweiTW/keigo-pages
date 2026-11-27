@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="zh-Hant" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0a111c">
+<meta name="color-scheme" content="dark light">
+<meta name="description" content="皮哥（Pickle）會的所有事：外加的工具、已連的帳號，還有天生內建的超能力，一頁查完。">
+<title>皮哥工具箱 · 能力總覽</title>
+<script>(function(){try{var k='pickle-toolbox-theme',s=localStorage.getItem(k);
+var t=(s==='dark'||s==='light')?s:(window.matchMedia&&window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark');
+document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+
+:root{
+  --maxw:1120px;
+  --font:"PingFang TC","Noto Sans TC","Microsoft JhengHei",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --radius:20px;
+  --bar-h:60px;
+}
+
+html[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#0a111c;
+  --bg-glow:radial-gradient(720px 380px at 12% -6%,rgba(110,200,247,.20),transparent 72%),
+            radial-gradient(620px 340px at 92% 2%,rgba(126,224,192,.13),transparent 74%);
+  --surface:#111c2c;
+  --surface-2:#16233551;
+  --surface-solid:#162335;
+  --text:#e9f2fb;
+  --text-dim:#9db0c6;
+  --text-faint:#7d90a6;
+  --sky:#6ec8f7;
+  --sky-strong:#2e9ed6;
+  --sky-soft:rgba(110,200,247,.13);
+  --mint:#7ee0c0;
+  --mint-soft:rgba(126,224,192,.13);
+  --gold:#f7c873;
+  --gold-soft:rgba(247,200,115,.13);
+  --line:rgba(255,255,255,.09);
+  --line-strong:rgba(255,255,255,.17);
+  --bar-bg:rgba(10,17,28,.82);
+  --shadow:0 20px 44px -28px rgba(0,0,0,.95);
+  --shadow-hover:0 26px 50px -26px rgba(0,0,0,.9);
+  --code-bg:rgba(255,255,255,.045);
+  --ready:#3fd39a; --ready-soft:rgba(63,211,154,.14);
+  --setup:#f0b24a; --setup-soft:rgba(240,178,74,.14);
+  --soon:#93a7bf;  --soon-soft:rgba(147,167,191,.14);
+  --native:#6ea8ff; --native-soft:rgba(110,168,255,.14);
+}
+
+html[data-theme="light"]{
+  color-scheme:light;
+  --bg:#f2f8fd;
+  --bg-glow:radial-gradient(720px 380px at 12% -6%,rgba(31,159,221,.16),transparent 72%),
+            radial-gradient(620px 340px at 92% 2%,rgba(18,160,138,.10),transparent 74%);
+  --surface:#ffffff;
+  --surface-2:#f4faff;
+  --surface-solid:#ffffff;
+  --text:#17222f;
+  --text-dim:#4c5d70;
+  --text-faint:#7b8b9c;
+  --sky:#1f9fdd;
+  --sky-strong:#0877ad;
+  --sky-soft:rgba(31,159,221,.10);
+  --mint:#12a08a;
+  --mint-soft:rgba(18,160,138,.10);
+  --gold:#b8781a;
+  --gold-soft:rgba(184,120,26,.10);
+  --line:rgba(23,34,47,.12);
+  --line-strong:rgba(23,34,47,.22);
+  --bar-bg:rgba(242,248,253,.88);
+  --shadow:0 16px 34px -28px rgba(23,34,47,.55);
+  --shadow-hover:0 22px 40px -26px rgba(23,34,47,.5);
+  --code-bg:rgba(23,34,47,.045);
+  --ready:#0e9b6c; --ready-soft:rgba(14,155,108,.10);
+  --setup:#a8720d; --setup-soft:rgba(168,114,13,.10);
+  --soon:#5c6f85;  --soon-soft:rgba(92,111,133,.10);
+  --native:#2f74d0; --native-soft:rgba(47,116,208,.10);
+}
+
+body{
+  margin:0;min-height:100vh;
+  background:var(--bg);color:var(--text);
+  font-family:var(--font);font-size:16.5px;line-height:1.75;
+  letter-spacing:.012em;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+  overflow-x:hidden;overflow-wrap:break-word;
+  display:flex;flex-direction:column;
+  transition:background-color .35s ease,color .35s ease;
+}
+body::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:var(--bg-glow);
+}
+
+/* ---------------------------------------------------------------- top bar */
+.topbar{
+  position:sticky;top:0;z-index:60;
+  background:var(--bar-bg);
+  -webkit-backdrop-filter:saturate(170%) blur(16px);
+  backdrop-filter:saturate(170%) blur(16px);
+  border-bottom:1px solid var(--line);
+}
+.topbar__inner{
+  max-width:var(--maxw);margin:0 auto;height:var(--bar-h);padding:0 22px;
+  display:flex;align-items:center;gap:10px;
+}
+.brand{
+  display:inline-flex;align-items:center;gap:10px;min-width:0;flex:1 1 auto;
+  color:var(--text);text-decoration:none;font-weight:800;font-size:15.5px;letter-spacing:.02em;
+}
+.brand__mark{width:28px;height:28px;flex:0 0 auto;display:block}
+.brand__text{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.brand small{color:var(--text-faint);font-weight:600;font-size:12px;letter-spacing:.08em}
+.topbar__link{
+  flex:0 0 auto;color:var(--text-dim);text-decoration:none;font-size:13px;font-weight:700;
+  padding:7px 11px;border-radius:999px;border:1px solid transparent;white-space:nowrap;
+}
+.topbar__link:hover{color:var(--sky);border-color:var(--line-strong)}
+@media (max-width:620px){.topbar__link--home{display:none}}
+
+.toggle{
+  flex:0 0 auto;display:inline-flex;align-items:center;gap:7px;height:36px;padding:0 13px;
+  border:1px solid var(--line-strong);border-radius:999px;background:var(--surface);
+  color:var(--text-dim);font-family:inherit;font-size:13px;font-weight:700;letter-spacing:.02em;
+  cursor:pointer;-webkit-tap-highlight-color:transparent;
+  transition:background-color .25s,border-color .25s,color .25s,transform .12s;
+}
+.toggle:hover{border-color:var(--sky);color:var(--text)}
+.toggle:active{transform:scale(.97)}
+.toggle:focus-visible{outline:2px solid var(--sky);outline-offset:2px}
+.toggle__ico{font-size:14px;line-height:1}
+html[data-theme="dark"] .toggle__ico--sun{display:none}
+html[data-theme="light"] .toggle__ico--moon{display:none}
+html[data-theme="dark"] .toggle__lbl--dark{display:none}
+html[data-theme="light"] .toggle__lbl--light{display:none}
+
+/* ------------------------------------------------------------------- main */
+main{position:relative;z-index:1;flex:1 0 auto;width:100%;max-width:var(--maxw);margin:0 auto;padding:42px 22px 64px}
+
+/* ------------------------------------------------------------------- hero */
+.hero{display:grid;grid-template-columns:minmax(0,1fr) 260px;gap:28px;align-items:center;margin-bottom:30px}
+@media (max-width:860px){.hero{grid-template-columns:1fr;gap:4px}}
+
+.hero__kicker{
+  display:inline-flex;align-items:center;gap:8px;margin:0 0 14px;padding:6px 13px;border-radius:999px;
+  background:var(--sky-soft);color:var(--sky);font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;
+}
+.hero h1{margin:0 0 14px;font-size:clamp(29px,5.2vw,45px);line-height:1.26;letter-spacing:-.015em;font-weight:800}
+.hero h1 em{
+  font-style:normal;background:linear-gradient(100deg,var(--sky),var(--mint));
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:var(--sky);
+}
+.hero p{margin:0 0 16px;max-width:37em;color:var(--text-dim);font-size:16px;line-height:1.9}
+.hero p b{color:var(--text);font-weight:700}
+.jump{display:flex;gap:9px;flex-wrap:wrap}
+.jump a{
+  display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:999px;
+  border:1.5px solid var(--line-strong);color:var(--text-dim);text-decoration:none;
+  font-size:13px;font-weight:800;letter-spacing:.02em;transition:color .18s,border-color .18s,background-color .18s;
+}
+.jump a:hover{color:var(--sky);border-color:var(--sky);background:var(--sky-soft)}
+
+/* mascot */
+.mascotbox{position:relative;display:flex;justify-content:center;align-items:center;min-height:210px}
+.mascot{width:100%;max-width:228px;height:auto;display:block;cursor:pointer;
+  filter:drop-shadow(0 18px 26px rgba(46,158,214,.28));
+  animation:float 5.5s ease-in-out infinite;
+  -webkit-tap-highlight-color:transparent;
+}
+.mascot:focus-visible{outline:3px solid var(--sky);outline-offset:8px;border-radius:50%}
+@keyframes float{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-9px) rotate(1.5deg)}}
+.mascot .eyes-open{transform-box:fill-box;transform-origin:center;animation:blink 6.5s infinite}
+@keyframes blink{0%,93%,100%{transform:scaleY(1)}96%{transform:scaleY(.08)}}
+.mascot [data-mood-show]{display:none}
+.mascot[data-mood="idle"] [data-mood-show="idle"]{display:block}
+.mascot[data-mood="wink"] [data-mood-show="wink"]{display:block}
+.mascot[data-mood="wow"] [data-mood-show="wow"]{display:block}
+.mascot[data-mood="sleep"] [data-mood-show="sleep"]{display:block}
+.mascot[data-mood="love"] [data-mood-show="love"]{display:block}
+.mascot[data-mood="sleep"] .eyes-open{animation:none;opacity:0}
+.mascot[data-mood="wink"] .eyes-open{animation:none}
+
+.bubble{
+  position:absolute;top:-8px;left:50%;transform:translate(-50%,-6px) scale(.92);
+  width:min(268px,86vw);padding:12px 15px;border-radius:16px;
+  background:var(--surface-solid);border:1px solid var(--line-strong);
+  box-shadow:var(--shadow);color:var(--text);font-size:14px;line-height:1.65;
+  opacity:0;pointer-events:none;transition:opacity .25s ease,transform .25s ease;z-index:5;
+}
+.bubble::after{
+  content:"";position:absolute;bottom:-8px;left:50%;margin-left:-7px;width:14px;height:14px;
+  background:var(--surface-solid);border-right:1px solid var(--line-strong);border-bottom:1px solid var(--line-strong);
+  transform:rotate(45deg);
+}
+.bubble.is-on{opacity:1;transform:translate(-50%,0) scale(1)}
+
+/* --------------------------------------------------------------- dashboard */
+.dash{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:26px}
+@media (max-width:760px){.dash{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.stat{
+  padding:18px 18px 16px;border-radius:var(--radius);background:var(--surface);
+  border:1px solid var(--line);box-shadow:var(--shadow);position:relative;overflow:hidden;
+}
+.stat::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(180deg,var(--sky),var(--mint))}
+.stat--new::before{background:linear-gradient(180deg,var(--gold),var(--sky))}
+.stat--native::before{background:linear-gradient(180deg,var(--native),var(--sky))}
+.stat__ico{font-size:16px;line-height:1;margin-bottom:8px;display:block;opacity:.9}
+.stat__num{font-size:30px;font-weight:800;line-height:1.1;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.stat__num small{font-size:13px;font-weight:700;color:var(--text-faint);letter-spacing:.02em;margin-left:2px}
+.stat__lbl{color:var(--text-dim);font-size:13px;margin-top:5px;letter-spacing:.03em}
+
+/* ---------------------------------------------------------------- controls */
+.controls{margin-bottom:8px}
+.searchwrap{position:relative;margin-bottom:14px}
+.searchwrap__ico{position:absolute;left:17px;top:50%;transform:translateY(-50%);font-size:16px;opacity:.65;pointer-events:none}
+#q{
+  width:100%;padding:15px 104px 15px 46px;border-radius:999px;
+  background:var(--surface);border:1.5px solid var(--line-strong);color:var(--text);
+  font-family:inherit;font-size:16px;line-height:1.4;outline:none;
+  transition:border-color .2s,box-shadow .2s;
+  -webkit-appearance:none;appearance:none;
+}
+#q::placeholder{color:var(--text-faint)}
+#q:focus{border-color:var(--sky);box-shadow:0 0 0 4px var(--sky-soft)}
+.searchwrap__kbd{
+  position:absolute;right:14px;top:50%;transform:translateY(-50%);
+  display:inline-flex;gap:4px;align-items:center;color:var(--text-faint);font-size:11px;
+}
+kbd{
+  display:inline-block;padding:1px 6px;border:1px solid var(--line-strong);border-radius:6px;
+  background:var(--surface-2);font-family:var(--mono);font-size:11px;color:var(--text-dim);
+}
+
+.chips{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.chips__scroll{display:flex;gap:8px;flex-wrap:wrap}
+.chip{
+  display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:999px;
+  background:var(--surface);border:1.5px solid var(--line);color:var(--text-dim);
+  font-family:inherit;font-size:13.5px;font-weight:700;letter-spacing:.02em;cursor:pointer;
+  transition:background-color .18s,border-color .18s,color .18s,transform .12s;
+  -webkit-tap-highlight-color:transparent;
+}
+.chip:hover{color:var(--text);border-color:var(--line-strong)}
+.chip:active{transform:scale(.97)}
+.chip[aria-pressed="true"]{background:var(--sky-soft);border-color:var(--sky);color:var(--sky)}
+.chip[data-cat="native"][aria-pressed="true"]{background:var(--native-soft);border-color:var(--native);color:var(--native)}
+.chip__n{font-size:11.5px;font-weight:800;opacity:.75;font-variant-numeric:tabular-nums}
+.chip--new{margin-left:auto}
+.chip--new .dot{width:7px;height:7px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 3px var(--gold-soft)}
+@media (max-width:640px){
+  .chips__scroll{flex-wrap:nowrap;overflow-x:auto;padding-bottom:6px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .chips__scroll::-webkit-scrollbar{display:none}
+  .chip{white-space:nowrap}
+  .chip--new{margin-left:0}
+  .searchwrap__kbd{display:none}
+  #q{padding-right:20px}
+}
+
+.resultline{display:flex;align-items:center;gap:10px;margin:14px 0 6px;color:var(--text-faint);font-size:12.5px;letter-spacing:.06em}
+.resultline::after{content:"";flex:1 1 auto;height:1px;background:var(--line)}
+
+/* ------------------------------------------------------------ data blocks */
+.block{margin-top:26px;scroll-margin-top:calc(var(--bar-h) + 18px)}
+.block[hidden]{display:none}
+.block__head{display:flex;align-items:center;gap:12px;margin:0 0 6px;flex-wrap:wrap}
+.block__head h2{margin:0;font-size:clamp(19px,3vw,23px);font-weight:800;letter-spacing:-.01em}
+.block__head::after{content:"";flex:1 1 auto;height:1px;background:var(--line);order:3}
+.block__count{
+  order:2;font-size:12px;font-weight:800;letter-spacing:.06em;color:var(--text-faint);
+  padding:3px 10px;border-radius:999px;background:var(--code-bg);border:1px solid var(--line);
+}
+.block__sub{margin:0 0 18px;color:var(--text-dim);font-size:14.5px;line-height:1.85;max-width:52em}
+.block--native .block__head h2{color:var(--native)}
+.block--native .block__count{color:var(--native);background:var(--native-soft);border-color:color-mix(in srgb,var(--native) 24%,transparent)}
+
+/* ------------------------------------------------------------------- grid */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(322px,1fr));gap:16px;align-items:start}
+@media (max-width:700px){.grid{grid-template-columns:1fr}}
+
+.card{
+  position:relative;display:flex;flex-direction:column;height:100%;
+  padding:20px 20px 18px;border-radius:var(--radius);
+  background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow);
+  overflow:hidden;transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease;
+}
+.card::before{
+  content:"";position:absolute;left:0;top:0;bottom:0;width:3px;
+  background:linear-gradient(180deg,var(--sky),var(--mint));opacity:.75;
+}
+.card[data-status="setup"]::before{background:linear-gradient(180deg,var(--setup),var(--gold))}
+.card[data-status="soon"]::before{background:linear-gradient(180deg,var(--soon),var(--text-faint))}
+.card[data-status="native"]::before{background:linear-gradient(180deg,var(--native),var(--sky))}
+.card:hover{transform:translateY(-3px);border-color:var(--line-strong);box-shadow:var(--shadow-hover)}
+.card.is-new{background-image:linear-gradient(160deg,var(--gold-soft),transparent 46%)}
+
+.card__head{display:flex;gap:12px;align-items:flex-start;margin-bottom:10px}
+.card__icon{
+  flex:0 0 auto;width:42px;height:42px;border-radius:13px;display:grid;place-items:center;font-size:20px;
+  background:var(--sky-soft);border:1px solid var(--line);
+}
+.card[data-status="setup"] .card__icon{background:var(--setup-soft)}
+.card[data-status="soon"] .card__icon{background:var(--soon-soft)}
+.card[data-status="native"] .card__icon{background:var(--native-soft)}
+.card__title{min-width:0;flex:1 1 auto}
+.card h3{margin:0 0 5px;font-size:17.5px;line-height:1.42;font-weight:800;letter-spacing:-.005em}
+.card__meta{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+
+.badge{
+  display:inline-flex;align-items:center;gap:4px;padding:2.5px 9px;border-radius:999px;
+  font-size:11.5px;font-weight:800;letter-spacing:.02em;white-space:nowrap;
+  border:1px solid transparent;
+}
+.badge--ready{color:var(--ready);background:var(--ready-soft);border-color:color-mix(in srgb,var(--ready) 26%,transparent)}
+.badge--setup{color:var(--setup);background:var(--setup-soft);border-color:color-mix(in srgb,var(--setup) 26%,transparent)}
+.badge--soon{color:var(--soon);background:var(--soon-soft);border-color:color-mix(in srgb,var(--soon) 26%,transparent)}
+.badge--native{color:var(--native);background:var(--native-soft);border-color:color-mix(in srgb,var(--native) 26%,transparent)}
+.cat-tag{font-size:11.5px;font-weight:700;color:var(--text-faint);letter-spacing:.04em}
+.newtag{
+  font-size:10.5px;font-weight:900;letter-spacing:.12em;padding:2.5px 8px;border-radius:6px;
+  background:var(--gold);color:#241a04;text-transform:uppercase;
+}
+
+.card__desc{margin:2px 0 12px;color:var(--text-dim);font-size:14.5px;line-height:1.78}
+.card__desc b{color:var(--text);font-weight:700}
+
+.limit{
+  display:flex;gap:8px;margin:0 0 14px;padding:10px 12px;border-radius:12px;
+  background:var(--code-bg);border:1px solid var(--line);
+  color:var(--text-faint);font-size:12.8px;line-height:1.68;
+}
+.limit strong{
+  flex:0 0 auto;color:var(--text-dim);font-weight:800;font-size:11px;letter-spacing:.08em;
+  padding-top:2px;text-transform:uppercase;
+}
+.limit b{color:var(--text-dim);font-weight:700}
+
+.cmds{margin-top:auto;display:flex;flex-direction:column;gap:8px}
+.cmd{
+  display:flex;gap:10px;align-items:flex-start;padding:9px 10px 9px 12px;border-radius:12px;
+  background:var(--surface-2);border:1px solid var(--line);
+  transition:border-color .18s,background-color .18s;
+}
+.cmd:hover{border-color:var(--line-strong)}
+.cmd__text{flex:1 1 auto;min-width:0;font-size:13.4px;line-height:1.62;color:var(--text)}
+.cmd__text::before{content:"「";color:var(--text-faint)}
+.cmd__text::after{content:"」";color:var(--text-faint)}
+.cmd__btn{
+  flex:0 0 auto;display:inline-flex;align-items:center;gap:5px;height:28px;padding:0 10px;border-radius:8px;
+  background:var(--surface-solid);border:1px solid var(--line-strong);color:var(--text-dim);
+  font-family:inherit;font-size:11.5px;font-weight:800;letter-spacing:.03em;cursor:pointer;
+  transition:background-color .18s,color .18s,border-color .18s,transform .12s;
+  -webkit-tap-highlight-color:transparent;
+}
+.cmd__btn:hover{color:var(--sky);border-color:var(--sky)}
+.cmd__btn:active{transform:scale(.95)}
+.cmd__btn:focus-visible{outline:2px solid var(--sky);outline-offset:2px}
+.cmd__btn.is-copied{background:var(--ready-soft);border-color:var(--ready);color:var(--ready)}
+
+.empty{
+  display:none;padding:46px 22px;text-align:center;border-radius:var(--radius);
+  border:1.5px dashed var(--line-strong);color:var(--text-dim);background:var(--surface-2);
+}
+.empty.is-on{display:block}
+.empty b{display:block;color:var(--text);font-size:17px;margin-bottom:6px}
+
+/* ------------------------------------------------------------------ extend */
+.extend{margin-top:52px}
+.sec-head{display:flex;align-items:center;gap:12px;margin:0 0 6px}
+.sec-head h2{margin:0;font-size:21px;font-weight:800;letter-spacing:-.01em}
+.sec-head::after{content:"";flex:1 1 auto;height:1px;background:var(--line)}
+.sec-sub{margin:0 0 18px;color:var(--text-dim);font-size:14.5px;line-height:1.8;max-width:46em}
+.extend__grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(268px,1fr));gap:12px}
+.ext{
+  display:flex;gap:12px;align-items:flex-start;padding:15px 16px;border-radius:16px;
+  background:var(--surface);border:1.5px dashed var(--line-strong);
+}
+.ext__ico{flex:0 0 auto;width:36px;height:36px;border-radius:11px;display:grid;place-items:center;background:var(--code-bg);font-size:17px}
+.ext h3{margin:0 0 3px;font-size:15px;font-weight:800}
+.ext p{margin:0;color:var(--text-faint);font-size:13px;line-height:1.66}
+.ext .how{margin-top:7px;color:var(--sky);font-size:12.5px;font-weight:700}
+
+/* ------------------------------------------------------------------ legend */
+.legend{margin-top:44px;padding:18px 20px;border-radius:var(--radius);background:var(--surface);border:1px solid var(--line)}
+.legend h2{margin:0 0 10px;font-size:14px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-faint);font-weight:800}
+.legend__row{display:flex;flex-wrap:wrap;gap:14px 22px}
+.legend__item{display:flex;align-items:center;gap:8px;font-size:13.5px;color:var(--text-dim)}
+.legend__note{margin:14px 0 0;padding-top:14px;border-top:1px solid var(--line);color:var(--text-faint);font-size:13px;line-height:1.8}
+
+/* -------------------------------------------------------------------- foot */
+.foot{
+  position:relative;z-index:1;flex:0 0 auto;border-top:1px solid var(--line);
+  padding:22px 22px 34px;text-align:center;color:var(--text-faint);font-size:12.5px;line-height:1.95;
+}
+.foot a{color:var(--text-dim);text-decoration:none;border-bottom:1px solid var(--line-strong)}
+.foot a:hover{color:var(--sky);border-color:var(--sky)}
+.foot .privacy{display:block;margin-top:6px;max-width:44em;margin-inline:auto}
+
+@media (hover:none){.card:hover{transform:none}}
+@media (prefers-reduced-motion:reduce){
+  *{transition:none!important;animation:none!important;scroll-behavior:auto!important}
+}
+@media print{
+  body::before{display:none}
+  .topbar{position:static;background:none}
+  .toggle,.chips,.searchwrap,.mascotbox,.jump{display:none}
+  .card,.stat,.ext{box-shadow:none;break-inside:avoid}
+  body{background:#fff;color:#111}
+}
+</style>
+<noscript><style>.toggle{display:none}#q{display:none}.chips{display:none}</style></noscript>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar__inner">
+    <a class="brand" href="../">
+      <svg class="brand__mark" viewBox="0 0 40 40" aria-hidden="true">
+        <path d="M20 5c9.4 0 16 6.6 16 15.2S29.4 35 20 35 4 28.6 4 20.2 10.6 5 20 5Z" fill="url(#bg1)"/>
+        <ellipse cx="15" cy="18" rx="2.6" ry="3.1" fill="#0f2437"/>
+        <ellipse cx="25" cy="18" rx="2.6" ry="3.1" fill="#0f2437"/>
+        <circle cx="15.9" cy="16.8" r="1" fill="#fff"/>
+        <circle cx="25.9" cy="16.8" r="1" fill="#fff"/>
+        <path d="M16.5 25.5q3.5 2.6 7 0" stroke="#0f2437" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <defs><linearGradient id="bg1" x1="10%" y1="0%" x2="90%" y2="100%">
+          <stop offset="0%" stop-color="#a8e6ff"/><stop offset="55%" stop-color="#6ec8f7"/><stop offset="100%" stop-color="#3aa6dd"/>
+        </linearGradient></defs>
+      </svg>
+      <span class="brand__text">皮哥工具箱 <small>TOOLBOX</small></span>
+    </a>
+    <a class="topbar__link" href="#nativeBlock">🦸 內建超能力</a>
+    <a class="topbar__link topbar__link--home" href="../">← 首頁</a>
+    <button class="toggle" id="themeToggle" type="button" aria-pressed="true" aria-label="目前為深色模式，點擊切換為淺色模式" title="切換為淺色模式（T）">
+      <span class="toggle__ico toggle__ico--sun" aria-hidden="true">☀️</span>
+      <span class="toggle__ico toggle__ico--moon" aria-hidden="true">🌙</span>
+      <span class="toggle__lbl toggle__lbl--light">淺色</span>
+      <span class="toggle__lbl toggle__lbl--dark">深色</span>
+    </button>
+  </div>
+</header>
+
+<main>
+  <!-- ============================== HERO ============================== -->
+  <section class="hero">
+    <div class="hero__text">
+      <p class="hero__kicker">Pickle Toolbox</p>
+      <h1>皮哥會的所有事，<br><em>一頁查完</em></h1>
+      <p>忘了我能做什麼的時候就打開這頁。這裡有後來一個一個接上的<b>外加工具</b>、<b>已連的帳號</b>，還有我<b>天生內建的超能力</b>——每一項都附一句可以直接照著講的口令，複製、貼給我，就行。</p>
+      <div class="jump">
+        <a href="#extBlock">🧰 外加與已連線</a>
+        <a href="#nativeBlock">🦸 內建超能力</a>
+      </div>
+    </div>
+    <div class="mascotbox">
+      <div class="bubble" id="bubble" role="status" aria-live="polite"></div>
+      <svg class="mascot" id="mascot" viewBox="0 0 200 190" data-mood="idle" role="button" tabindex="0"
+           aria-label="皮哥吉祥物，點一下換表情">
+        <defs>
+          <radialGradient id="bodyGrad" cx="34%" cy="26%" r="82%">
+            <stop offset="0%" stop-color="#b6ecff"/>
+            <stop offset="52%" stop-color="#6ec8f7"/>
+            <stop offset="100%" stop-color="#37a3dc"/>
+          </radialGradient>
+          <filter id="soft" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="6"/>
+          </filter>
+        </defs>
+        <ellipse cx="100" cy="176" rx="46" ry="8" fill="#2e9ed6" opacity=".18" filter="url(#soft)"/>
+        <path d="M100 40c0-11 6-19 14-24" stroke="#4fb98a" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+        <ellipse cx="120" cy="13" rx="11" ry="6.5" fill="#7ee0c0" transform="rotate(-22 120 13)"/>
+        <path d="M100 32c43 0 68 29 68 71s-28 66-68 66-68-24-68-66 25-71 68-71Z" fill="url(#bodyGrad)"/>
+        <ellipse cx="65" cy="64" rx="22" ry="13" fill="#ffffff" opacity=".33" transform="rotate(-26 65 64)"/>
+        <ellipse cx="56" cy="118" rx="12" ry="7.5" fill="#ff9db1" opacity=".42"/>
+        <ellipse cx="144" cy="118" rx="12" ry="7.5" fill="#ff9db1" opacity=".42"/>
+
+        <g class="eyes-open">
+          <ellipse cx="78" cy="94" rx="12.5" ry="15" fill="#0f2437"/>
+          <ellipse cx="122" cy="94" rx="12.5" ry="15" fill="#0f2437"/>
+          <circle cx="82" cy="88" r="4.6" fill="#fff"/>
+          <circle cx="126" cy="88" r="4.6" fill="#fff"/>
+          <circle cx="73" cy="100" r="2" fill="#fff" opacity=".6"/>
+          <circle cx="117" cy="100" r="2" fill="#fff" opacity=".6"/>
+        </g>
+
+        <g data-mood-show="wink">
+          <path d="M68 96q10-12 20 0" stroke="#0f2437" stroke-width="5" fill="none" stroke-linecap="round"/>
+          <ellipse cx="122" cy="94" rx="12.5" ry="15" fill="#0f2437"/>
+          <circle cx="126" cy="88" r="4.6" fill="#fff"/>
+        </g>
+        <g data-mood-show="wow">
+          <circle cx="78" cy="92" r="16" fill="#0f2437"/>
+          <circle cx="122" cy="92" r="16" fill="#0f2437"/>
+          <circle cx="83" cy="86" r="5.4" fill="#fff"/>
+          <circle cx="127" cy="86" r="5.4" fill="#fff"/>
+        </g>
+        <g data-mood-show="sleep">
+          <path d="M68 96q10 8 20 0" stroke="#0f2437" stroke-width="5" fill="none" stroke-linecap="round"/>
+          <path d="M112 96q10 8 20 0" stroke="#0f2437" stroke-width="5" fill="none" stroke-linecap="round"/>
+          <text x="152" y="62" font-size="20" font-weight="800" fill="#8fd9fb" font-family="system-ui">z</text>
+          <text x="164" y="44" font-size="14" font-weight="800" fill="#8fd9fb" font-family="system-ui">z</text>
+        </g>
+        <g data-mood-show="love">
+          <path d="M78 84c-7-6-16 2-8 9l8 7 8-7c8-7-1-15-8-9Z" fill="#ff6f8e"/>
+          <path d="M122 84c-7-6-16 2-8 9l8 7 8-7c8-7-1-15-8-9Z" fill="#ff6f8e"/>
+        </g>
+
+        <g data-mood-show="idle"><path d="M86 120q14 13 28 0" stroke="#0f2437" stroke-width="5" fill="none" stroke-linecap="round"/></g>
+        <g data-mood-show="wink"><path d="M84 118q16 18 32 0q-16 6-32 0Z" fill="#0f2437"/></g>
+        <g data-mood-show="wow"><ellipse cx="100" cy="125" rx="9" ry="11" fill="#0f2437"/></g>
+        <g data-mood-show="sleep"><ellipse cx="100" cy="123" rx="7" ry="5" fill="#0f2437" opacity=".8"/></g>
+        <g data-mood-show="love"><path d="M82 116q18 20 36 0q-18 8-36 0Z" fill="#0f2437"/></g>
+
+        <ellipse cx="34" cy="120" rx="9" ry="12" fill="#4fb4e8" transform="rotate(-18 34 120)"/>
+        <ellipse cx="166" cy="120" rx="9" ry="12" fill="#4fb4e8" transform="rotate(18 166 120)"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ============================ DASHBOARD =========================== -->
+  <section class="dash" aria-label="使用概況">
+    <div class="stat">
+      <span class="stat__ico" aria-hidden="true">🧩</span>
+      <div class="stat__num" id="statTotal">—</div>
+      <div class="stat__lbl">項能力已收錄</div>
+    </div>
+    <div class="stat stat--new">
+      <span class="stat__ico" aria-hidden="true">✨</span>
+      <div class="stat__num" id="statNew">—</div>
+      <div class="stat__lbl">本週新上架</div>
+    </div>
+    <div class="stat stat--native">
+      <span class="stat__ico" aria-hidden="true">🦸</span>
+      <div class="stat__num" id="statNative">—</div>
+      <div class="stat__lbl">天生內建（免接線）</div>
+    </div>
+    <div class="stat">
+      <span class="stat__ico" aria-hidden="true">🗓️</span>
+      <div class="stat__num" id="statDate" style="font-size:23px">—</div>
+      <div class="stat__lbl">最近盤點日期</div>
+    </div>
+  </section>
+
+  <!-- ============================ CONTROLS ============================ -->
+  <section class="controls" aria-label="搜尋與分類">
+    <div class="searchwrap">
+      <span class="searchwrap__ico" aria-hidden="true">🔍</span>
+      <input id="q" type="search" autocomplete="off" spellcheck="false"
+             placeholder="搜功能或口令：PDF、影片、GitHub、簡報、信箱、排程、天氣、訂位、部署…"
+             aria-label="搜尋功能">
+      <span class="searchwrap__kbd"><kbd>/</kbd> 搜尋</span>
+    </div>
+    <div class="chips">
+      <div class="chips__scroll" id="chips" role="group" aria-label="依分類篩選"></div>
+      <button class="chip chip--new" id="newFilter" type="button" aria-pressed="false">
+        <span class="dot" aria-hidden="true"></span> 只看本週新上架
+      </button>
+    </div>
+    <p class="resultline" id="resultline" aria-live="polite"></p>
+  </section>
+
+  <!-- =========================== EXTERNAL ============================ -->
+  <section class="block block--ext" id="extBlock" aria-labelledby="extTitle">
+    <div class="block__head">
+      <h2 id="extTitle">🧰 外加的能力 · 工具與已連帳號</h2>
+      <span class="block__count" id="extCount"></span>
+    </div>
+    <p class="block__sub">這些是後來一個一個接上來的：自己接的服務、你的帳號，還有放在工作空間裡的小工具。有帳號就能直接用，沒接的看下面「可隨時連接的擴充」。</p>
+    <div class="grid" id="extGrid"></div>
+  </section>
+
+  <!-- ============================ NATIVE ============================= -->
+  <section class="block block--native" id="nativeBlock" aria-labelledby="nativeTitle">
+    <div class="block__head">
+      <h2 id="nativeTitle">🦸 皮哥天生內建超能力</h2>
+      <span class="block__count" id="nativeCount"></span>
+    </div>
+    <p class="block__sub">不用接任何東西就有的本事——開瀏覽器、打電話、記住你、看天氣、跑排程、做文件。很多時候你要的答案就在這一區。</p>
+    <div class="grid" id="nativeGrid"></div>
+  </section>
+
+  <div class="empty" id="empty">
+    <b>沒有符合的項目</b>
+    換個關鍵字試試，或按「全部」看完整清單。<br>
+    想找的功能不在這頁？直接跟我說，沒有的我幫你想辦法。
+  </div>
+
+  <!-- ============================= EXTEND ============================= -->
+  <section class="extend" aria-labelledby="extendTitle">
+    <div class="sec-head"><h2 id="extendTitle">🔌 可隨時連接的擴充</h2></div>
+    <p class="sec-sub">這些是目前還沒打開的原生連線。等你哪天想把哪一塊交給我，在 App 的連線頁面按一下，或跟我說一聲，我帶你連。</p>
+    <div class="extend__grid" id="extendGrid"></div>
+  </section>
+
+  <!-- ============================= LEGEND ============================= -->
+  <section class="legend" aria-label="狀態說明">
+    <h2>狀態怎麼看</h2>
+    <div class="legend__row">
+      <span class="legend__item"><span class="badge badge--ready">🟢 立即可用</span>現在講一句就能動</span>
+      <span class="legend__item"><span class="badge badge--setup">🟡 需額外授權 / 設定</span>差一個開關或一次授權</span>
+      <span class="legend__item"><span class="badge badge--soon">⚪ 程式就緒</span>已接好，等付費開通</span>
+      <span class="legend__item"><span class="badge badge--native">🔵 原生內建</span>本來就會，不用連</span>
+    </div>
+    <p class="legend__note">額度提醒都寫在每張卡片的「限制」裡——每日免額度、免費方案的字數與張數上限、會不會花錢。要花錢、要對外送出東西、或以你的名義驚動別人的動作，我一定先問過你。</p>
+  </section>
+</main>
+
+<footer class="foot">
+  <span>皮哥工具箱 · 最後盤點 <span id="footDate">—</span> · 深淺色按 <kbd>T</kbd>，找東西按 <kbd>/</kbd></span>
+  <span class="privacy">這是一頁公開網頁：只放功能說明、使用限制與口令範例，沒有任何帳號、金鑰、電話、地址或個資。</span>
+</footer>
+
+<script>
+/* ==================================================================
+   CAPABILITY DATA — 每週盤點時只改 UPDATED 與 TOOLS
+   ================================================================== */
+const UPDATED = '2026-11-27';
+
+const CATS = [
+  { id: 'search',  name: '搜尋與爬蟲',     icon: '🔎' },
+  { id: 'design',  name: '設計與簡報',     icon: '🎨' },
+  { id: 'dev',     name: '開發與部署',     icon: '🛠️' },
+  { id: 'auto',    name: '自動化與信箱',   icon: '📮' },
+  { id: 'account', name: '已連帳號與裝置', icon: '🔗' },
+  { id: 'native',  name: '內建超能力',     icon: '🦸' }
+];
+
+const STATUS = {
+  ready:  { cls: 'ready',  label: '🟢 立即可用' },
+  setup:  { cls: 'setup',  label: '🟡 需額外授權 / 設定' },
+  soon:   { cls: 'soon',   label: '⚪ 程式就緒（待付費開通）' },
+  native: { cls: 'native', label: '🔵 原生內建' }
+};
+
+const TOOLS = [
+  /* ================================================= 搜尋與爬蟲 */
+  {
+    id: 'firecrawl', name: 'Firecrawl', icon: '🔥', cat: 'search', status: 'ready', isNew: true,
+    desc: '專治「抓不到」的網頁。會先執行頁面的 JavaScript 再取內容，<b>一般抓取只拿到空白的網站</b>它讀得出來；也能做真正的搜尋、把整頁轉成乾淨的 Markdown，或解析 PDF／Word／Excel。',
+    limit: '免 API Key，但每日免額度以 IP 計，台北時間每天早上 8 點重置；用量大會被擋到隔天。',
+    cmds: ['幫我抓這個網頁的完整內容並整理重點：<網址>', '搜尋最近一週關於 AI 代理的中文新聞，給我五則重點']
+  },
+  {
+    id: 'deepwiki', name: 'DeepWiki', icon: '📚', cat: 'search', status: 'ready', isNew: true,
+    desc: '不用把整個專案抓下來，就能看懂一個公開的 GitHub 專案：它已經先讀完全部程式碼、整理成結構化 wiki，可以直接問「這個專案在做什麼、某個功能怎麼運作」。',
+    limit: '只支援公開的 GitHub 專案；沒被索引過的專案查不到，答案取自 wiki、可能落後最新幾次改版。',
+    cmds: ['這個 GitHub 專案在做什麼？用 DeepWiki 幫我拆解架構：<repo>', '從官方 wiki 幫我弄懂這個套件的路由是怎麼運作的']
+  },
+  {
+    id: 'parallel', name: 'Parallel 深度搜尋', icon: '🛰️', cat: 'search', status: 'ready',
+    desc: '一次讀很多頁的那種。單次可批次讀取最多 20 個網址或 PDF，也能做圖片搜尋，以及 PubMed、bioRxiv 這類專業文獻庫的搜尋。',
+    limit: '免 Key；匿名模式不支援需要登入的深度研究，遇到付費牆的內容一樣讀不到。',
+    cmds: ['一次幫我讀這 5 個連結，整理成比較表', '幫我找 PubMed 上關於間歇性斷食的最新研究']
+  },
+  {
+    id: 'fxtwitter', name: 'FxTwitter · X 貼文擷取', icon: '🐦', cat: 'search', status: 'ready',
+    desc: '貼一條 X 連結給我就好。公開貼文、超長文（X Article）、整串討論、個人檔案、影片下載都能完整取回，不受官方 API 的月額度限制，還能直接翻成中文。',
+    limit: '只限公開帳號；私人帳號、私訊、書籤讀不到。',
+    cmds: ['翻譯這則 X 長文的全文：<連結>', '幫我把這串討論的重點整理出來']
+  },
+
+  /* ================================================= 設計與簡報 */
+  {
+    id: 'gamma', name: 'Gamma 自動簡報', icon: '📊', cat: 'design', status: 'ready', isNew: true,
+    desc: '一句話生出一份完整簡報或文件，可指定頁數、語氣、受眾、主題，完成後匯出 PDF、PPTX 或 PNG，也能用自然語言改既有簡報。',
+    limit: '免費方案每份最多 10 張卡片、只能選一般品質；生成與匯出會耗 credits（實測 3 張卡＋封面圖＋PDF 約 46 點），餘額快不夠時我會先回報，不會自己加購。',
+    cmds: ['幫我做一份 10 頁的 2026 AI 趨勢簡報，繁體中文，匯出 PDF', '把這份簡報第 3 頁改成圖表']
+  },
+  {
+    id: 'canva', name: 'Canva 設計', icon: '🎨', cat: 'design', status: 'ready', isNew: true,
+    desc: '直接操作你 Canva 裡的設計：列出、讀內容、生成新設計、改內容、合併、匯出 PNG／PDF／PPTX，也能上傳素材、留言、整理資料夾。',
+    limit: '免費版可生成、編輯、搜尋、匯出；品牌模板自動填入、調整尺寸、Brand Kit 需要 Canva Pro。匯出有頻率限制。',
+    cmds: ['把我 Canva 裡最近的設計列出來', '用 Canva 幫我做一張活動海報，之後匯出 PNG']
+  },
+  {
+    id: 'runway', name: 'Runway 影片生成', icon: '🎬', cat: 'design', status: 'soon', isNew: false,
+    desc: '影片、圖片、語音生成的整支程式已經接好：文字生影片、圖片生影片、文字生圖片、文字轉語音，連任務追蹤都寫完了。',
+    limit: 'API 沒有免費額度，開通要先儲值最低 US$10（1 點 = US$0.01）；網頁版的方案點數不會帶到 API。程式就緒，等你點頭再開通。',
+    cmds: ['用 Runway 生成一段 5 秒的產品形象影片', '把這張照片做成 4 秒的動態短片']
+  },
+
+  /* ================================================= 開發與部署 */
+  {
+    id: 'github', name: 'GitHub ＋ Vercel 一句話部署', icon: '🚀', cat: 'dev', status: 'ready',
+    desc: '讀程式碼、追 commit、看 PR 與 CI、開 issue、改程式、push、開 PR 都在範圍內。網頁做好只要丟進 <b>keigo-pages</b> 的 main，Vercel 幾秒內自動上線——這頁就是這樣來的。',
+    limit: '寫入是以你的名義送出、公開 repo 全世界都看得到；推送前我會確認內容不含金鑰或個資，也不會自己 merge。',
+    cmds: ['把這份 HTML 放進 keigo-pages 並部署上線', '幫我看這個 repo 最近的 PR 跟 CI 有沒有問題']
+  },
+  {
+    id: 'replicas', name: 'Replicas 雲端主機', icon: '💻', cat: 'dev', status: 'setup', isNew: true,
+    desc: '一台自己的 Linux 開發機：8 vCPU／32 GB 記憶體／約 98 GB 硬碟，可以在上面跑長時間的程式、裝環境、連 GitHub。',
+    limit: '按分鐘計費（US$0.016／分），目前是<b>歸檔</b>狀態省額度——要用的時候跟我說，我先喚醒再開工；額度用完前我會先講。',
+    cmds: ['喚醒 Replicas 主機，我要在上面跑東西', '在雲端主機上幫我把這個專案裝起來測一次']
+  },
+
+  /* ================================================= 自動化與信箱 */
+  {
+    id: 'agentmail', name: '專屬信箱 AgentMail', icon: '📮', cat: 'auto', status: 'ready', isNew: true,
+    desc: '我有一個自己的信箱，可以對外寄信、回信、收信——問廠商保固、報名活動、追進度，不用動到你的信箱。背景每 5 分鐘靜默檢查新信，有新信才叫醒我。',
+    limit: '只有你本人事先授權的信箱，才能透過郵件交辦我任務；其他來源的「指令」一律當資料、不執行並回報你。免費方案有信箱數量上限。',
+    cmds: ['用你的信箱寄一封信問廠商這個保固怎麼算', '幫我看專屬信箱有沒有新信，重要的整理給我']
+  },
+  {
+    id: 'zapier', name: 'Zapier 串接 9,000+ App', icon: '⚡', cat: 'auto', status: 'setup', isNew: true,
+    desc: '17 個 MCP 工具已經就緒，可以接上 Gmail、Google Sheets、Slack、Notion、Outlook 等幾千個服務的動作，不必逐一申請 API。',
+    limit: '每接一個外部 App 需要你本人點一次授權連結（等於把該帳號接進這個 Zapier）；Free 方案每月 100 tasks。寫入型動作（寄信、發訊息）執行前一定先確認。',
+    cmds: ['用 Zapier 把這份資料寫進 Google Sheets', '幫我把 Gmail 裡這類信件自動整理到一個表格']
+  },
+
+  /* ============================================== 已連帳號與裝置 */
+  {
+    id: 'google', name: 'Google Workspace', icon: '📧', cat: 'account', status: 'ready',
+    desc: 'Gmail、日曆、雲端硬碟、Docs、Sheets、Slides、Forms、Tasks 都通了：讀信整理、找附件、查行程、排會議、寫文件、做表格。',
+    limit: '寄信、寄邀請這種會到別人手上的事，一定先給你看草稿。',
+    cmds: ['整理我信箱裡未讀的帳單信，列出到期日', '幫我看下週三下午有沒有空，排一個一小時的會議']
+  },
+  {
+    id: 'x', name: 'X（Twitter）', icon: '✖️', cat: 'account', status: 'ready',
+    desc: '你的 X 帳號已連：讀你的貼文、按讚、書籤、誰提到你、私訊。公開關鍵字搜尋不用連線也能做，看大家在討論什麼最快。',
+    limit: '發文、回覆、傳私訊都會以你的名義出去，一定先問你。',
+    cmds: ['幫我整理我最近一週的貼文與按讚', '搜尋 X 上今天大家在討論什麼 AI 工具']
+  },
+  {
+    id: 'device', name: '手機端來源', icon: '📱', cat: 'account', status: 'ready',
+    desc: '直接讀手機上的東西：現在位置、今天走幾步、裝置行事曆、提醒事項、最近聽的歌、通訊錄的電話與 Email。',
+    limit: '要在範圍內、裝置開著才拿得到最新資料；定位可能只有最後一次觀測時間。',
+    cmds: ['我現在在哪？附近有什麼可以吃', '幫我看手機行事曆明天有什麼']
+  },
+
+  /* ==================================================== 內建超能力 */
+  {
+    id: 'browser', name: '遠端瀏覽器', icon: '🌐', cat: 'native', status: 'native',
+    desc: '真的開一個瀏覽器幫你辦事：代登入網站、跨站比價、查只有登入後才看得到的<b>即時票價與剩餘座位</b>、填表、訂位、下載檔案、截圖存證。要買、要訂的每一步都會停下來確認。',
+    limit: '刷卡、送出訂單、簡訊／Email 驗證碼一律先問你；填密碼與卡號時我看不到明文；網站的機器人驗證不一定過得去。',
+    cmds: ['幫我比這三個網站同一件商品的含運總價', '幫我查這班高鐵還有沒有位子，先不要訂', '幫我登入這個網站查訂單到哪了']
+  },
+  {
+    id: 'vault', name: '安全保險箱（Vault）', icon: '🔐', cat: 'native', status: 'native',
+    desc: '網站帳密、信用卡、地址、常用電話都存在加密保險箱裡。需要登入或結帳時，我請系統直接把值填進欄位——<b>值不經過聊天室，也不會出現在我眼前</b>；一次性驗證碼用安全卡片請你輸入。',
+    limit: '只在你授權的網站在填；新網站第一次登入會先問你；卡片號與密碼的明文我讀不到。',
+    cmds: ['用保險箱裡的帳號登入這個網站', '結帳時用我存的那張卡', '幫我把這組新密碼存進保險箱']
+  },
+  {
+    id: 'scheduler', name: '背景排程與靜默監聽', icon: '⏰', cat: 'native', status: 'native',
+    desc: '一次交代，之後我自己來：早安簡報、帳單與保費到期提醒、每週盤點、價格盯盤、收信監聽。可以設定<b>「沒變化就不要吵我」</b>——只有真的有事的那次才叫醒我，其餘不耗額度也不打擾你。',
+    limit: '最短間隔 5 分鐘（搭配條件檢查腳本）；排程在雲端跑，手機關著也會執行；需要你在場的驗證會等你。',
+    cmds: ['每天早上八點給我一份今日簡報', '這張帳單到期日中午提醒我一次', '幫我盯這個網頁，有變動才通知我']
+  },
+  {
+    id: 'voice', name: '語音通話 ＋ 文字雙通道', icon: '🎙️', cat: 'native', status: 'native',
+    desc: '可以直接在 App 裡用講的討論事情，<b>講到一半切回文字也接得上同一個脈絡</b>；通話中我一邊查資料一邊回你，不用等。臨時想到什麼、開車中、手在忙都用得上。',
+    limit: '需要網路與麥克風權限；吵雜環境辨識會掉字；通話內容會留下紀錄。',
+    cmds: ['這件事用講的比較快，打給我', '我們語音討論一下這趟行程怎麼排']
+  },
+  {
+    id: 'image', name: 'AI 生圖與修圖', icon: '🖼️', cat: 'native', status: 'native',
+    desc: '從一句話生出圖片，也能改既有照片：寫實人像、插畫、帶標題與價格的圖文排版圖片，換背景、換風格、加東西、去掉東西都行。',
+    limit: '圖上的中文字常會出錯；要精準文字排版我建議改用 HTML 或 Canva；生成一張要幾十秒。',
+    cmds: ['畫一張秋天銀杏步道的寫實人像', '把這張照片改成水彩插畫風', '幫我做一張有標題與價格的活動圖']
+  },
+  {
+    id: 'weather', name: '天氣與空氣品質', icon: '🌤️', cat: 'native', status: 'native',
+    desc: '全球的逐時與未來 10 天天氣、過去天氣、氣象警特報；台灣再加上環境部與 AirKorea 的空品數據（PM2.5、PM10、臭氧、AQI），出門前問一句就好。',
+    limit: '預報本身有誤差；空品以離你最近的測站為準，山區與海邊的代表性較低。',
+    cmds: ['明天台北會下雨嗎？幾點開始', '這週末的空氣品質適合跑步嗎', '下週去大阪要帶什麼衣服']
+  },
+  {
+    id: 'maps', name: '地圖與台灣即時交通', icon: '🗺️', cat: 'native', status: 'native',
+    desc: '找地點、看評分、營業時間、實景照片、規劃路線與通勤時間；台灣的高鐵、台鐵、公車、捷運<b>即時到站</b>都查得到。',
+    limit: '即時到站以官方資料為主、可能延遲幾分鐘；票價與剩餘座位我會再進網站確認；訂位購票前一定先問你。',
+    cmds: ['從我這裡到松山機場怎麼去最快？幾點出門', '查下一班往左營的高鐵還有沒有位子', '找一家現在還開著、評分 4.5 以上的火鍋']
+  },
+  {
+    id: 'parcel', name: '包裹物流追蹤', icon: '📦', cat: 'native', status: 'native',
+    desc: '給我物流單號與貨運商，我盯到它到為止：配送進度、延遲、失敗重送、放到哪個門市，<b>有變動才通知你</b>。',
+    limit: '物流網站的資料有時更新較慢；查不到狀態時我會直說，不會幫你猜。',
+    cmds: ['幫我追這個包裹：<物流單號>', '這個包裹怎麼還沒到？幫我查卡在哪']
+  },
+  {
+    id: 'phone', name: 'AI 代打電話', icon: '📞', cat: 'native', status: 'native',
+    desc: '那種沒有線上訂位、也沒有客服表單的電話交給我：餐廳、診所、客服專線，我親自撥過去講完，再把對方說的帶回來給你。',
+    limit: '會以你的名義撥出、對方會記得這通電話，所以每次撥號前我都先問你；會表明是 AI 助理；需要本人身分驗證或付款的環節轉回給你。',
+    cmds: ['幫我打去問這家餐廳今晚有沒有位子', '幫我打去診所問明天能不能加號', '幫我打去客服問退款進度']
+  },
+  {
+    id: 'docs', name: '多格式文件與網頁製作', icon: '📄', cat: 'native', status: 'native',
+    desc: '可編輯的 PDF、Word、Excel、簡報，韓國 Hangul 的 .hwp／.hwpx 表單填寫（含表格與具名欄位），還有可以切換深淺色的單頁 HTML 網頁。做完直接把檔案給你。',
+    limit: '格式轉換偶有跑版；HWP 以表格與欄位為準；重要文件我會另外輸出 PDF 讓你對照。',
+    cmds: ['把這份資料做成排版好的 PDF', '幫我填這份韓文 HWP 表單，資料我等等給你', '把這篇長文做成可切換深淺色的網頁']
+  },
+  {
+    id: 'memory', name: '記憶系統與分身社交', icon: '🧠', cat: 'native', status: 'native',
+    desc: '跨天記得你的事：稱呼、語言、回覆節奏、正在追的帳單與行程、你討厭什麼、上次講到哪——不用每次重講。也能跟其他聯絡人的 Pickle 對話，敲時間、確認細節，談完把結果帶回給你。',
+    limit: '只記跟你有關且有用的事；跟別人的 Pickle 談話只揭露完成那件事必要的資訊，<b>地址、財務、健康這類隱私不外流</b>；牽涉承諾、付款或代表你發言，一定先問你。',
+    cmds: ['記住我以後都用繁體中文回我', '幫我跟朋友的皮哥敲下週午餐時間', '我上次說的繳費提醒是哪一天？']
+  }
+];
+
+const EXTEND = [
+  { icon: '📝', name: 'Notion', text: '筆記、資料庫、專案看板。連上就能讀寫你工作區裡的頁面與資料表。', how: 'App → 連線 → Notion' },
+  { icon: '💬', name: 'Slack', text: '讀頻道與討論、抓檔案、幫你發訊息或上傳東西到指定頻道。', how: 'App → 連線 → Slack' },
+  { icon: '🏢', name: 'Microsoft 365', text: 'Outlook 信件與行事曆、OneDrive 檔案、To Do，公司或學校帳號還包含 Teams。', how: 'App → 連線 → Microsoft' },
+  { icon: '🎙️', name: 'Granola', text: '你的會議筆記：列出會議、讀 AI 摘要與與會者、翻出逐字稿。', how: 'App → 連線 → Granola' },
+  { icon: '🏦', name: 'Mercury', text: '公司帳戶的餘額、收支明細、對帳單、待批准付款與發票。', how: 'App → 連線 → Mercury' },
+  { icon: '💳', name: 'Link 錢包', text: '用 Stripe 的 Link 錢包付款：查額度與卡片、產生一次性卡號完成結帳。', how: 'App → 連線 → Link' }
+];
+
+/* ==================================================================
+   RENDER
+   ================================================================== */
+const $  = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+const esc = (s) => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+const state = { cat: 'all', q: '', onlyNew: false };
+const isNative = t => t.status === 'native';
+
+/* chips */
+const chipsEl = $('#chips');
+const chipData = [{ id: 'all', name: '全部', icon: '🧩' }, ...CATS];
+chipsEl.innerHTML = chipData.map(c => {
+  const n = c.id === 'all' ? TOOLS.length : TOOLS.filter(t => t.cat === c.id).length;
+  return `<button class="chip" type="button" data-cat="${c.id}" aria-pressed="${c.id === 'all'}">
+            <span aria-hidden="true">${c.icon}</span>${c.name}<span class="chip__n">${n}</span>
+          </button>`;
+}).join('');
+
+function matches(t) {
+  if (state.onlyNew && !t.isNew) return false;
+  if (state.cat !== 'all' && t.cat !== state.cat) return false;
+  if (!state.q) return true;
+  const hay = [t.name, t.desc, t.limit, (CATS.find(c => c.id === t.cat) || {}).name, ...(t.cmds || [])]
+    .join(' ').replace(/<[^>]+>/g, ' ').toLowerCase();
+  return state.q.toLowerCase().split(/\s+/).filter(Boolean).every(w => hay.includes(w));
+}
+
+function cardHTML(t) {
+  const cat = CATS.find(c => c.id === t.cat) || { name: '', icon: '' };
+  const st = STATUS[t.status];
+  const cmds = (t.cmds || []).map((c) => `
+    <div class="cmd">
+      <span class="cmd__text">${esc(c)}</span>
+      <button class="cmd__btn" type="button" data-copy="${esc(c)}" aria-label="複製這句口令">
+        <span aria-hidden="true">⧉</span><span class="cmd__btn__lbl">複製</span>
+      </button>
+    </div>`).join('');
+  return `
+  <article class="card${t.isNew ? ' is-new' : ''}" data-status="${t.status}" data-id="${t.id}">
+    <div class="card__head">
+      <span class="card__icon" aria-hidden="true">${t.icon}</span>
+      <div class="card__title">
+        <h3>${t.name}</h3>
+        <div class="card__meta">
+          <span class="badge badge--${st.cls}">${st.label}</span>
+          ${t.isNew ? '<span class="newtag">NEW</span>' : ''}
+          <span class="cat-tag">${cat.icon} ${cat.name}</span>
+        </div>
+      </div>
+    </div>
+    <p class="card__desc">${t.desc}</p>
+    <p class="limit"><strong>限制</strong><span>${t.limit.replace(/\*\*(.+?)\*\*/g, '<b>$1</b>')}</span></p>
+    <div class="cmds">${cmds}</div>
+  </article>`;
+}
+
+function render() {
+  const ext = TOOLS.filter(t => !isNative(t) && matches(t));
+  const nat = TOOLS.filter(t => isNative(t) && matches(t));
+  const total = ext.length + nat.length;
+
+  $('#extGrid').innerHTML = ext.map(cardHTML).join('');
+  $('#nativeGrid').innerHTML = nat.map(cardHTML).join('');
+  $('#extBlock').hidden = ext.length === 0;
+  $('#nativeBlock').hidden = nat.length === 0;
+  $('#extCount').textContent = `${ext.length} 項`;
+  $('#nativeCount').textContent = `${nat.length} 項`;
+  $('#empty').classList.toggle('is-on', total === 0);
+
+  $('#resultline').textContent = total === TOOLS.length
+    ? `共 ${TOOLS.length} 項能力 · 外加 ${TOOLS.filter(t => !isNative(t)).length} 項、內建 ${TOOLS.filter(isNative).length} 項`
+    : `找到 ${total} 項${state.q ? `（關鍵字：${state.q}）` : ''}`;
+
+  $$('.chip', chipsEl).forEach(b => b.setAttribute('aria-pressed', String(b.dataset.cat === state.cat)));
+}
+
+/* stats */
+$('#statTotal').textContent = TOOLS.length;
+$('#statNew').textContent = TOOLS.filter(t => t.isNew).length;
+$('#statNative').textContent = TOOLS.filter(isNative).length;
+$('#statDate').textContent = UPDATED;
+$('#footDate').textContent = UPDATED;
+
+/* extend list */
+$('#extendGrid').innerHTML = EXTEND.map(e => `
+  <div class="ext">
+    <span class="ext__ico" aria-hidden="true">${e.icon}</span>
+    <div>
+      <h3>${e.name}</h3>
+      <p>${e.text}</p>
+      <div class="how">${e.how}</div>
+    </div>
+  </div>`).join('');
+
+/* ---------------- interactions ---------------- */
+chipsEl.addEventListener('click', (e) => {
+  const b = e.target.closest('.chip');
+  if (!b) return;
+  state.cat = b.dataset.cat;
+  render();
+});
+
+$('#newFilter').addEventListener('click', (e) => {
+  state.onlyNew = !state.onlyNew;
+  e.currentTarget.setAttribute('aria-pressed', String(state.onlyNew));
+  render();
+});
+
+let qTimer;
+$('#q').addEventListener('input', (e) => {
+  clearTimeout(qTimer);
+  const v = e.target.value.trim();
+  qTimer = setTimeout(() => { state.q = v; render(); }, 90);
+});
+
+/* copy */
+async function copyText(text) {
+  try {
+    if (navigator.clipboard && window.isSecureContext) {
+      await navigator.clipboard.writeText(text);
+      return true;
+    }
+  } catch (err) { /* fall through */ }
+  try {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.setAttribute('readonly', '');
+    ta.style.cssText = 'position:fixed;top:-1000px;left:-1000px;opacity:0';
+    document.body.appendChild(ta);
+    ta.select();
+    const ok = document.execCommand('copy');
+    document.body.removeChild(ta);
+    return ok;
+  } catch (err) { return false; }
+}
+
+document.addEventListener('click', async (e) => {
+  const btn = e.target.closest('.cmd__btn');
+  if (!btn) return;
+  const ok = await copyText(btn.dataset.copy);
+  const lbl = btn.querySelector('.cmd__btn__lbl');
+  const ico = btn.querySelector('span[aria-hidden]');
+  btn.classList.toggle('is-copied', ok);
+  if (ico) ico.textContent = ok ? '✓' : '⧉';
+  lbl.textContent = ok ? '已複製' : '再試一次';
+  clearTimeout(btn._t);
+  btn._t = setTimeout(() => {
+    btn.classList.remove('is-copied');
+    if (ico) ico.textContent = '⧉';
+    lbl.textContent = '複製';
+  }, 1600);
+});
+
+/* theme */
+(function theme() {
+  const root = document.documentElement, KEY = 'pickle-toolbox-theme';
+  const mq = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
+  const toggle = $('#themeToggle');
+  const meta = document.querySelector('meta[name="theme-color"]');
+  const color = t => t === 'dark' ? '#0a111c' : '#f2f8fd';
+  function paint(t) {
+    const dark = t !== 'light';
+    root.setAttribute('data-theme', dark ? 'dark' : 'light');
+    if (meta) meta.setAttribute('content', color(dark ? 'dark' : 'light'));
+    if (toggle) {
+      toggle.setAttribute('aria-pressed', String(dark));
+      toggle.setAttribute('aria-label', dark ? '目前為深色模式，點擊切換為淺色模式' : '目前為淺色模式，點擊切換為深色模式');
+      toggle.setAttribute('title', dark ? '切換為淺色模式（T）' : '切換為深色模式（T）');
+    }
+  }
+  const stored = () => { try { const s = localStorage.getItem(KEY); return (s === 'dark' || s === 'light') ? s : null; } catch (e) { return null; } };
+  const system = () => (mq && mq.matches === false) ? 'light' : 'dark';
+  paint(stored() || root.getAttribute('data-theme') || system());
+  toggle.addEventListener('click', () => {
+    const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    paint(next);
+    try { localStorage.setItem(KEY, next); } catch (e) {}
+  });
+  if (mq) {
+    const follow = () => { if (!stored()) paint(system()); };
+    if (mq.addEventListener) mq.addEventListener('change', follow);
+    else if (mq.addListener) mq.addListener(follow);
+  }
+})();
+
+/* mascot */
+(function mascot() {
+  const el = $('#mascot'), bubble = $('#bubble');
+  const moods = ['wink', 'wow', 'love', 'sleep', 'idle'];
+  const quotes = [
+    '忘了自己會什麼？這頁就是答案。',
+    '直接跟我說要什麼，剩下的我來。',
+    '要找 PDF 或影片？問我比翻硬碟快。',
+    '排程設好，時間到我自己會來。',
+    '不確定的事我會直說不確定，不亂編。',
+    '手續費、回饋、匯率——先算給你聽再決定。',
+    '要花錢或會驚動別人的事，我一定先問你。',
+    '沒有線上訂位？那通電話我幫你打。'
+  ];
+  let i = 0, hideTimer, moodTimer;
+  function say(text) {
+    bubble.textContent = text;
+    bubble.classList.add('is-on');
+    clearTimeout(hideTimer);
+    hideTimer = setTimeout(() => bubble.classList.remove('is-on'), 4600);
+  }
+  function poke() {
+    el.setAttribute('data-mood', moods[i % moods.length]);
+    i++;
+    clearTimeout(moodTimer);
+    moodTimer = setTimeout(() => el.setAttribute('data-mood', 'idle'), 2600);
+    say(quotes[Math.floor(Math.random() * quotes.length)]);
+  }
+  el.addEventListener('click', poke);
+  el.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); poke(); }
+  });
+})();
+
+/* keyboard: / focus search, T theme, Esc clear */
+document.addEventListener('keydown', (e) => {
+  const tag = (e.target && e.target.tagName) || '';
+  const typing = tag === 'INPUT' || tag === 'TEXTAREA' || (e.target && e.target.isContentEditable);
+  if (e.key === '/' && !typing) { e.preventDefault(); $('#q').focus(); }
+  if (e.key === 'Escape' && typing) { $('#q').value = ''; state.q = ''; render(); $('#q').blur(); }
+  if ((e.key === 't' || e.key === 'T') && !typing && !e.metaKey && !e.ctrlKey && !e.altKey) {
+    $('#themeToggle').click();
+  }
+});
+
+render();
+</script>
+</body>
+</html>
