@@ -7,6 +7,8 @@ Keigo 的靜態網頁收藏。純 HTML / CSS / JavaScript，沒有建置流程�
 ```
 keigo-pages/
 ├── index.html              # 首頁，列出所有收錄頁面（深淺色自動跟隨系統，按 T 切換）
+├── toolbox/
+│   └── index.html          # 皮哥工具箱：能力總覽（外加工具、已連帳號、內建超能力）
 ├── doomsday/
 │   └── index.html          # 《復仇者聯盟：末日崛起》終極懶人包
 └── README.md
